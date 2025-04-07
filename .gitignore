@@ -1,0 +1,54 @@
+# Diretórios de build
+/build/
+/CMakeFiles/
+/cmake-build-*/
+/.cache/
+
+# Arquivos gerados pelo CMake
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.sln
+*.vcxproj*
+*.user
+*.opensdf
+*.sdf
+
+# Arquivos temporários de build do Visual Studio/MSVC
+*.obj
+*.pdb
+*.ilk
+*.log
+
+# Executáveis
+*.exe
+*.out
+*.a
+*.lib
+*.dll
+
+# Arquivos do Ninja
+.ninja*
+build.ninja
+rules.ninja
+
+# Arquivos de compilação para clang/gcc
+*.o
+*.gch
+
+# Arquivos de backup e temporários
+*~
+*.tmp
+*.swp
+*.bak
+
+# Arquivos de cache de IDEs
+.vscode/
+.idea/
+*.code-workspace
+
+# Arquivos gerados por compiladores
+compile_commands.json
+
+# Logs de build.ps1
+*.ps1.log
