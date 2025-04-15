@@ -2,13 +2,13 @@
 #include "components/collider.hpp"
 #include "components/renderable.hpp"
 #include "components/transform.hpp"
+#include "systems/camera.hpp"
 #include "systems/render.hpp"
 #include <core/entity.hpp>
 #include <core/entityManager.hpp>
 #include <game.hpp>
 #include <raylib.h>
-
-static Camera3D camera;
+#include <systems/cameraManager.hpp>
 
 void InitGame() {
   EntityID playerID = GlobalEntityManager.CreateEntity(
@@ -23,20 +23,40 @@ void InitGame() {
       ColliderComponent{.size = {2, 2, 2}, .isStatic = true},
       RenderableComponent{.color = BLUE, .size = {2, 2, 2}});
 
-  camera.position = (Vector3){0.0f, 10.0f, 10.0f};
-  camera.target = (Vector3){0.0f, 0.0f, 0.0f};
-  camera.up = (Vector3){0.0f, 1.0f, 0.0f};
-  camera.fovy = 45.0f;
-  camera.projection = CAMERA_PERSPECTIVE;
+  int followCamId =
+      GlobalCameraManager.CreateCamera(Systems::Camera::CameraConfig{
+          .behavior = Systems::Camera::CameraBehavior::Follow,
+          .followTargetID = playerID,
+          .offset = {0, 6, 10},
+          .followLerp = 5.0f,
+          .rotationIntensity = 0.0f,
+          .zoom = 45.0f,
+          .boundsXZ = (Rectangle){0}, // ok por enquanto
+          .priority = 10});
+  GlobalCameraManager.SetActiveCamera(followCamId);
+
+  int fixedCamId =
+      GlobalCameraManager.CreateCamera(Systems::Camera::CameraConfig{
+          .behavior = Systems::Camera::CameraBehavior::Fixed,
+          .followTargetID = playerID,
+          .offset = {10, 6, -8},
+          .followLerp = 10.0f,
+          .rotationIntensity = 5.0f,
+          .zoom = 50.0f,
+          .boundsXZ = {4, -4, 8, 8},
+          .priority = 20});
+
+  DisableCursor();
 }
 
 void UpdateGame() {
   GlobalEntityManager.UpdateAll();
+  GlobalCameraManager.Update(0.0005f, 0.0005f / 2.0f);
 
   BeginDrawing();
   ClearBackground(DARKGRAY);
 
-  BeginMode3D(camera);
+  BeginMode3D(*GlobalCameraManager.GetActiveCamera());
   Systems::Render::DrawAll();
   EndMode3D();
 

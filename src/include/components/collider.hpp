@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../common/types.hpp"
+#include <array>
 #include <cstddef>
 #include <functional>
 #include <raylib.h>
@@ -14,7 +15,7 @@ struct ColliderComponent {
   bool triggered;
   bool requiresInteraction;
 
-  EntityType acceptedTypes[MAX_TRIGGER_TYPES];
+  std::array<EntityType, MAX_TRIGGER_TYPES> acceptedTypes;
   size_t typeCount;
 
   std::function<void(EntityID triggerID, EntityID activatorID)> onTrigger;

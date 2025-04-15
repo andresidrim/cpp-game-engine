@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../common/types.hpp"
-#include "../components/collider.hpp"
-#include "../components/renderable.hpp"
-#include "../components/transform.hpp"
-#include "components/component_storage.hpp"
+#include <common/types.hpp>
+#include <components/collider.hpp>
+#include <components/component_storage.hpp>
+#include <components/renderable.hpp>
+#include <components/transform.hpp>
 #include <cstdint>
 #include <string>
 

@@ -1,5 +1,8 @@
+#include "components/renderable.hpp"
+#include "components/transform.hpp"
 #include <core/entityManager.hpp>
 #include <raylib.h>
+#include <rlgl.h>
 #include <systems/render.hpp>
 
 namespace Systems::Render {
@@ -10,15 +13,25 @@ void DrawAll() {
   for (size_t i = 0; i < entities.size(); i++) {
     auto &e = entities.at(i);
 
-    auto transformComponent = e.TryGetComponent<TransformComponent>();
-    auto renderableComponent = e.TryGetComponent<RenderableComponent>();
-
-    if (!transformComponent || !renderableComponent)
+    if (!e.HasComponent<TransformComponent>() ||
+        !e.HasComponent<RenderableComponent>())
       continue;
 
-    DrawCube(transformComponent->position, renderableComponent->size.x,
-             renderableComponent->size.y, renderableComponent->size.z,
-             renderableComponent->color);
+    auto &transformComponent = e.GetComponent<TransformComponent>();
+    auto &renderableComponent = e.GetComponent<RenderableComponent>();
+
+    rlPushMatrix();
+
+    rlTranslatef(transformComponent.position.x, transformComponent.position.y,
+                 transformComponent.position.z);
+
+    rlRotatef(RAD2DEG * transformComponent.rotation.y, 0, 1, 0);
+
+    DrawCube((Vector3){0, 0, 0}, renderableComponent.size.x,
+             renderableComponent.size.y, renderableComponent.size.z,
+             renderableComponent.color);
+
+    rlPopMatrix();
   }
 }
 
