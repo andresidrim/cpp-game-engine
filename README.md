@@ -1,37 +1,38 @@
 # Raylib PS1 Game Engine
 
-Uma mini engine modular em C usando [Raylib](https://www.raylib.com/) para criar jogos no estilo **PlayStation 1**, com foco em:
+A modular, minimalistic 3D game engine written in **C++**, built with [Raylib](https://www.raylib.com/), aiming to replicate the visual style and technical constraints of **PlayStation 1-era** games.
 
-- Simplicidade e performance (estilo C puro)
-- Estilo visual retrô (low poly, low res)
-- Arquitetura baseada em componentes (ECS simplificado)
-- Modularidade por sistemas: movimento, colisão, renderização, triggers, etc.
+## 🎯 Goals
+
+- Simple and fast architecture using low-level **C++**
+- Retro aesthetics: **low poly**, **low resolution**, and affine-like rendering
+- Lightweight **ECS-like architecture** (Entity-Component-System)
+- Modular systems: movement, rendering, collisions, interactions, etc.
+- Designed for learning, experimentation, and nostalgic 3D game prototyping
 
 ---
 
-## 🕹️ Como rodar
-
-### Requisitos
+## 🛠 Requirements
 
 - [MSYS2 + MinGW 64-bit](https://www.msys2.org/)
-- Raylib instalado via pacman:
+- Raylib installed via pacman:
   ```bash
   pacman -S mingw-w64-x86_64-raylib
   ```
 - CMake 3.10+
-- Compilador C (MinGW ou MSVC)
+- C++ compiler (MinGW or MSVC)
 
 ---
 
-### Build no Windows (PowerShell)
+## 🔧 Build Instructions
+
+### Windows (PowerShell)
 
 ```powershell
 ./build.ps1
 ```
 
----
-
-### Build manual (CMake)
+### Manual Build with CMake
 
 ```bash
 cmake -B build
@@ -40,7 +41,7 @@ cmake --build build
 
 ---
 
-## 📁 Estrutura do Projeto
+## 📁 Project Structure
 
 ```
 .
@@ -48,64 +49,59 @@ cmake --build build
 │   ├── core/         # Entity, EntityManager
 │   ├── components/   # Transform, Collider, Renderable
 │   ├── systems/      # MovementSystem, RenderSystem, etc.
-│   ├── triggers/     # Eventos de jogo (ex: pegar chave)
-│   └── game.hpp      # Inicialização e update do jogo
-├── src/              # Implementações (.c/.cpp)
-├── build.ps1         # Script de build para Windows
+│   ├── triggers/     # Trigger logic and events
+│   └── game.hpp      # Game loop and entry point
+├── src/              # Source files (.cpp)
+├── build.ps1         # Windows build script
 ├── CMakeLists.txt
 └── README.md
 ```
 
 ---
 
-## 🎮 Controles
+## 🎮 Controls
 
-- `WASD`: mover o jogador
-- `E`: interagir com objetos (triggers)
-
----
-
-## 🧱 Componentes & Sistemas
-
-| Componente | Descrição                      |
-| ---------- | ------------------------------ |
-| Transform  | Posição, velocidade, movimento |
-| Collider   | Tamanho, colisão e triggers    |
-| Renderable | Visualização via DrawCube      |
-
-| Sistema         | Função                          |
-| --------------- | ------------------------------- |
-| MovementSystem  | Leitura de input e movimentação |
-| CollisionSystem | Colisões AABB entre entidades   |
-| RenderSystem    | Desenha as entidades            |
-| TriggerSystem   | Interações baseadas em colisões |
-| UIMessageSystem | Mensagens de texto temporárias  |
+- `WASD`: Move the player
+- `E`: Interact with objects (via trigger components)
 
 ---
 
-## 🚀 Feito com
+## 🧩 Core Components & Systems
 
-- ❤️ [C](<https://en.wikipedia.org/wiki/C_(programming_language)>)
+| Component   | Description                           |
+|-------------|---------------------------------------|
+| Transform   | Position, velocity, movement handling |
+| Collider    | Bounding box for collision/triggers   |
+| Renderable  | 3D cube rendering with Raylib         |
+
+| System          | Responsibility                            |
+|-----------------|--------------------------------------------|
+| MovementSystem  | Handles input and player movement          |
+| CollisionSystem | AABB collision detection between entities  |
+| RenderSystem    | Renders entities using Raylib              |
+| TriggerSystem   | Manages trigger-based interactions         |
+| UIMessageSystem | Displays in-game text messages             |
+
+---
+
+## 🚀 Built With
+
+- 💻 [C++](https://en.wikipedia.org/wiki/C%2B%2B)
 - 🎮 [Raylib](https://www.raylib.com/)
-- 🛠️ [CMake](https://cmake.org/)
-- 🐧 (opcional) MSYS2 + MinGW
+- ⚙️ [CMake](https://cmake.org/)
+- 🧰 Optional: [MSYS2](https://www.msys2.org/) + MinGW
 
 ---
 
-## 📌 Observações
+## 📌 Notes
 
-- A engine ainda está em desenvolvimento.
-- O nome final será escolhido depois :)
-- Totalmente open-source para estudos, modificações e nostalgia.
-
----
-
-## 📸 Preview (em breve)
-
-_(Adicione aqui um gif ou screenshot do gameplay)_
+- This engine is a **work in progress**, developed in my free time as a personal learning project.
+- It is not intended for commercial use.
+- Final name to be decided later.
+- Open-source and free to use for learning, tinkering, or building nostalgic 3D games.
 
 ---
 
-## 📜 Licença
+## 📜 License
 
-Este projeto é distribuído sob a licença MIT.
+This project is licensed under the MIT License.
